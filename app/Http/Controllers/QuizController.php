@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\WcaApiService;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\QuizRequest;
+use Illuminate\Support\Facades\Http;
 
 class QuizController extends Controller
 {
@@ -25,8 +26,8 @@ class QuizController extends Controller
 
     public function person(Request $request){
         $person = $this->wcaApi->getRandomPerson($request->input('mode'), $request->input('difficulty'));
-        dd($person);
-        return redirect()->route('quiz.start')->with('person', $person);
+        $countryList = collect(Http::get('https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/countries.json')->json())->get('items');
+        return view ('new', ['person' => $person, 'countryList' => $countryList]);
     }
 
 }
