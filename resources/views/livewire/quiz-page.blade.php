@@ -8,7 +8,6 @@
                 <h4 class="text-danger fw-bold text-uppercase pb-3" id="error"></h4>
                 <h4 class="text-success fw-bold text-uppercase pb-3" id="success"></h4>
                 <h5 class="fw-bold text-uppercase">Tentativi rimasti: {{(9-$count)}}</h5>
-                <p>{{$person['name']}}</p>
             </div>
 
             {{-- NAME --}}
