@@ -1,4 +1,7 @@
 <div>
+    <div class="text-center">
+        <h3>Search for a person</h3>
+    </div>
     <div class="input-group">
         <input class="form-control" type="search" value="" placeholder="Your answer" wire:model.live.debounce.300ms="query">
         <button class="btn btn-outline-secondary" type="button" id="sendBtn" disabled>Search</button>

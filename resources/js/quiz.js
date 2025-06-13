@@ -26,6 +26,8 @@ function loadValues(){
     let cr = document.querySelector("#cr");
     let nr = document.querySelector("#nr");
     let person_name = document.querySelector("#person_name");
+    let best_results = document.querySelector("#best_results");
+    console.log(person);
     
 }
 
@@ -110,6 +112,8 @@ function showNameAndId(){
     setTimeout(() => {
         wca_id.innerHTML = person.id
         person_name.innerHTML = person.name
+        wca_id.classList.add("blinking")
+        person_name.classList.add("blinking")
     },100)
 }
 
@@ -125,14 +129,21 @@ function showAll(){
 }
 
 function formatCentiseconds(centiseconds) {
-    let minutes = Math.floor(centiseconds / 6000);
-    let seconds = Math.floor((centiseconds % 6000) / 100);
-    let hundredths = centiseconds % 100;
+    const hours = Math.floor(centiseconds / 360000);
+    const minutes = Math.floor((centiseconds % 360000) / 6000);
+    const seconds = Math.floor((centiseconds % 6000) / 100);
+    const hundredths = centiseconds % 100;
 
-    if (minutes > 0) {
-        return `${minutes}:${seconds.toString().padStart(2, '0')}.${hundredths.toString().padStart(2, '0')}`;
+    const cs = hundredths.toString().padStart(2, '0');
+    const s = seconds.toString().padStart(2, '0');
+    const m = minutes.toString().padStart(2, '0');
+
+    if (hours > 0) {
+        return `${hours}:${m}:${s}.${cs}`;
+    } else if (minutes > 0) {
+        return `${minutes}:${s}.${cs}`;
     } else {
-        return `${seconds}.${hundredths.toString().padStart(2, '0')}`;
+        return `${seconds}.${cs}`;
     }
 }
 
@@ -152,21 +163,35 @@ Livewire.on('wrongAnswer', (count) => {
     switch (count.count) {
         case 1:
             showNationality();
+            setTimeout(() => {
+                nationality.classList.add("blinking")
+            },100)
             break;
         case 2:
             showNationality();
             showCompNumber();
+            setTimeout(() => {
+                competitions_number.classList.add("blinking")   
+            },100)
             break;
         case 3:
             showNationality();
             showCompNumber();
             showChampNumber();
+            setTimeout(() => {
+                championships_number.classList.add("blinking")   
+            },100)
             break;
         case 4:
             showNationality();
             showCompNumber();
             showChampNumber();
             showMedals();
+            setTimeout(() => {
+                bronzes.classList.add("blinking")
+                silvers.classList.add("blinking")
+                golds.classList.add("blinking")
+            },100)
             break;
         case 5:
             showNationality();
@@ -174,6 +199,11 @@ Livewire.on('wrongAnswer', (count) => {
             showChampNumber();
             showMedals();
             showRecords();
+            setTimeout(() => {
+                nr.classList.add("blinking")
+                cr.classList.add("blinking")
+                wr.classList.add("blinking")
+            },100)
             break;
         case 6:
             showNationality();
@@ -182,6 +212,9 @@ Livewire.on('wrongAnswer', (count) => {
             showMedals();
             showRecords();
             showYear();
+            setTimeout(() => {
+                wca_id.classList.add("blinking")
+            },100)
             break;
         case 7:
             showNationality();
@@ -191,6 +224,9 @@ Livewire.on('wrongAnswer', (count) => {
             showRecords();
             showYear();
             showAverages();
+            setTimeout(() => {
+                best_results.classList.add("blinking")
+            },100)
             break;
         case 8:
             showNationality();
@@ -201,6 +237,9 @@ Livewire.on('wrongAnswer', (count) => {
             showYear();
             showAverages();
             showSingles();
+            setTimeout(() => {
+                best_results.classList.add("blinking")
+            },100)
             break;
     }
     setTimeout(() => {
@@ -213,13 +252,10 @@ Livewire.on('correctAnswer', () => {
     setTimeout(() => {
         success_text.innerText = "Correct Answer";
     },100)
-    
 })
 
 Livewire.on('gameOver', () => {
     showAll();
-    console.log("Game Over");
-    
 })
 
 loadValues();

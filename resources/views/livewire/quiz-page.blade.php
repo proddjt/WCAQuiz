@@ -1,5 +1,6 @@
 <div>
-    <div class="container">
+    <x-nav/>
+    <div class="container pb-5">
         <div class="row pt-5">
             <div class="col-12">
                 <livewire:searchBar/>
@@ -7,7 +8,7 @@
             <div class="col-12 d-flex align-items-center flex-column">
                 <h4 class="text-danger fw-bold text-uppercase pb-3" id="error"></h4>
                 <h4 class="text-success fw-bold text-uppercase pb-3" id="success"></h4>
-                <h5 class="fw-bold text-uppercase">Tentativi rimasti: {{(9-$count)}}</h5>
+                <h5 class="fw-bold text-uppercase">Remaining attempts: {{(9-$count)}}</h5>
             </div>
 
             {{-- NAME --}}
@@ -39,7 +40,7 @@
 
             {{-- RESULTS --}}
             <div class="col-12">
-                <h4 class="text-center fw-bold">Best results</h4>
+                <h4 class="text-center fw-bold" id="best_results">Best results</h4>
             </div>
             <div class="col-6">
                 <table class="table text-center table-hover table-striped result-table">

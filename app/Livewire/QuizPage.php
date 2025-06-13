@@ -34,4 +34,10 @@ class QuizPage extends Component
             $this->dispatch('gameOver');
         }
     }
+
+    #[On('revealAnswer')]
+    public function revealAnswer(){
+        $this->count = 9;
+        $this->dispatch('gameOver');
+    }
 }
