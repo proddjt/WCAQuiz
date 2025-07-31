@@ -31,6 +31,8 @@ function loadValues(){
     
 }
 
+
+
 function showNationality(){
     setTimeout(() => {
         let fullNationality = ""
@@ -98,9 +100,13 @@ function showSingles(){
         person.rank.singles.forEach(single => {
             if (single.eventId == "333fm"){
                 divList[`${single.eventId}_single`].innerHTML = single.best;
+            }
+            if (single.eventId == "333mbf"){
+                divList[`${single.eventId}_single`].innerHTML = decodeMultiBlind(single.best);
             }else{
                 divList[`${single.eventId}_single`].innerHTML = formatCentiseconds(single.best);
             }
+            
             divList[`${single.eventId}_nr_single`].innerHTML = single.rank.country;
             divList[`${single.eventId}_cr_single`].innerHTML = single.rank.continent;
             divList[`${single.eventId}_wr_single`].innerHTML = single.rank.world;
@@ -126,6 +132,24 @@ function showAll(){
     showAverages();
     showSingles();
     showNameAndId();
+}
+
+function decodeMultiBlind(value) {
+    const str = value.toString().padStart(9, '0');  // es. '970083200'
+    
+    const DD = parseInt(str.slice(0, 2));
+    const TTTTT = parseInt(str.slice(2, 7));
+    const MM = parseInt(str.slice(7, 9));
+
+    const difference = 99 - DD;
+    const missed = MM;
+    const solved = difference + missed;
+    const attempted = solved + missed;
+
+    const minutes = Math.floor(TTTTT / 60);
+    const seconds = TTTTT % 60;
+
+    return `${solved}/${attempted} ${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function formatCentiseconds(centiseconds) {
